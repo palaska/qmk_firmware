@@ -39,7 +39,7 @@ void dance_parens_open_reset (qk_tap_dance_state_t *state, void *user_data) {
 void dance_parens_close_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code (KC_LSFT);
-    register_code (KC_10);
+    register_code (KC_0);
   } else if (state->count == 2) {
     register_code (KC_RBRC);
   } else {
@@ -51,7 +51,7 @@ void dance_parens_close_finished (qk_tap_dance_state_t *state, void *user_data) 
 void dance_parens_close_reset (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_LSFT);
-    unregister_code (KC_10);
+    unregister_code (KC_0);
   } else if (state->count == 2) {
     unregister_code (KC_RBRC);
   } else {
