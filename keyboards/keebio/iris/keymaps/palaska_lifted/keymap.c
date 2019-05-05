@@ -14,7 +14,8 @@ enum {
 
 void dance_parens_open_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    register_code (KC_LPRN);
+    register_code (KC_LSFT);
+    register_code (KC_9);
   } else if (state->count == 2) {
     register_code (KC_LBRC);
   } else {
@@ -25,7 +26,8 @@ void dance_parens_open_finished (qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_parens_open_reset (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    unregister_code (KC_LPRN);
+    unregister_code (KC_LSFT);
+    unregister_code (KC_9);
   } else if (state->count == 2) {
     unregister_code (KC_LBRC);
   } else {
@@ -36,7 +38,8 @@ void dance_parens_open_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_parens_close_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    register_code (KC_RPRN);
+    register_code (KC_LSFT);
+    register_code (KC_10);
   } else if (state->count == 2) {
     register_code (KC_RBRC);
   } else {
@@ -47,7 +50,8 @@ void dance_parens_close_finished (qk_tap_dance_state_t *state, void *user_data) 
 
 void dance_parens_close_reset (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    unregister_code (KC_RPRN);
+    unregister_code (KC_LSFT);
+    unregister_code (KC_10);
   } else if (state->count == 2) {
     unregister_code (KC_RBRC);
   } else {
@@ -59,11 +63,8 @@ void dance_parens_close_reset (qk_tap_dance_state_t *state, void *user_data) {
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
-  // [TD_PARENS_OPEN]  = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_LBRC),
   [TD_PARENS_OPEN]  = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_parens_open_finished, dance_parens_open_reset),
   [TD_PARENS_CLOSE]  = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_parens_close_finished, dance_parens_close_reset)
-  // [TD_PARENS_CLOSE]  = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_RBRC),
-  // [TD_EQUALS_PLUS]  = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_PLUS)
 // Other declarations would go here, separated by commas, if you have them
 };
 
@@ -115,28 +116,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        // update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
+        // update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
